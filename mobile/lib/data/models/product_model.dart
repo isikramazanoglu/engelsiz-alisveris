@@ -4,6 +4,7 @@ class Product {
   final String? barcode;
   final double price;
   final String? description;
+  final String? imageUrl;
 
   Product({
     this.id,
@@ -11,6 +12,7 @@ class Product {
     this.barcode,
     required this.price,
     this.description,
+    this.imageUrl,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
@@ -21,6 +23,7 @@ class Product {
       // API'den gelen sayı int olabilir ama biz double kullanıyoruz, toDouble() ile güvene alalım.
       price: (json['price'] as num).toDouble(), 
       description: json['description'],
+      imageUrl: json['image_url'],
     );
   }
 

@@ -71,7 +71,19 @@ class _HomeViewState extends State<HomeView> {
                     child: ListTile(
                       title: Text(product.name),
                       subtitle: Text('${product.price} TL'),
-                      leading: const Icon(Icons.shopping_bag),
+                      leading: SizedBox(
+                        width: 50,
+                        height: 50,
+                        child: product.imageUrl != null && product.imageUrl!.isNotEmpty
+                            ? Image.network(
+                                product.imageUrl!,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) {
+                                  return const Icon(Icons.shop); // Hata durumunda ikon
+                                },
+                              )
+                            : const Icon(Icons.shopping_bag),
+                      ),
                     ),
                   );
                 },

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:engelsiz_alisveris/core/theme/app_theme.dart';
-import 'package:engelsiz_alisveris/views/home_view.dart';
+import 'package:engelsiz_alisveris/views/scanning_screen.dart';
 
 void main() {
   runApp(const EngelsizApp());
@@ -17,7 +17,7 @@ class EngelsizApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       // Semantics (Erişilebilirlik) açık
       showSemanticsDebugger: false, 
-      home: const HomeView(),
+      home: const ScanningScreen(),
     );
   }
 }
