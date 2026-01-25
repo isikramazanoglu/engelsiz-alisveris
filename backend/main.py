@@ -20,6 +20,11 @@ app = FastAPI(
     description="Görme engelli bireyler için sesli asistan ve alışveriş API servisi."
 )
 
+from fastapi.staticfiles import StaticFiles
+import os
+os.makedirs("static", exist_ok=True)
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 @app.middleware("http")
 async def log_requests(request: Request, call_next):
     start_time = time.time()

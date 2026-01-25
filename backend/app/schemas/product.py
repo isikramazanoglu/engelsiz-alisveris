@@ -6,6 +6,7 @@ class ProductBase(BaseModel):
     price: float
     description: Optional[str] = None
     barcode: Optional[str] = None
+    weight: Optional[str] = None
     image_url: Optional[str] = None
 
 class ProductCreate(ProductBase):
