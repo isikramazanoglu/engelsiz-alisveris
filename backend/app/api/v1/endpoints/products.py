@@ -10,9 +10,26 @@ router = APIRouter()
 @router.get("/", response_model=List[ProductSchema])
 def read_products(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     """
-    Tüm ürünleri listele.
+    Tüm ürünleri listele. Redis cache kullanılır.
     """
+    from app.core.cache import CacheService
+    
+    cache_key = f"products_list_{skip}_{limit}"
+    # 1. Cache kontrolü
+    cached_data = CacheService.get(cache_key)
+    if cached_data:
+        return cached_data
+
+    # 2. DB'den çekme
     products = db.query(Product).offset(skip).limit(limit).all()
+    
+    # 3. Cache'e yazma
+    # Pydantic modellerini dict'e çevirmek için jsonable_encoder kullanılabilir
+    # ama burada basitçe döndürüyoruz, FastAPI serialize edecek.
+    # Cache'e serileştirilebilir veri yazmalıyız.
+    from fastapi.encoders import jsonable_encoder
+    CacheService.set(cache_key, jsonable_encoder(products), expire=60) # 60 saniye cache
+    
     return products
 
 @router.get("/{barcode}", response_model=ProductSchema)
@@ -40,4 +57,9 @@ def create_product(product_in: ProductCreate, db: Session = Depends(get_db)):
     db.add(db_product)
     db.commit()
     db.refresh(db_product)
+    
+    # Cache temizleme (basit strateji: tüm listeleri sil)
+    from app.core.cache import CacheService
+    CacheService.delete_prefix("products_list_")
+    
     return db_product

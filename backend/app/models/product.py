@@ -11,4 +11,5 @@ class Product(Base):
     
     # Görüntü işleme metadata'sı
     image_url = Column(String, nullable=True)
+    weight = Column(String, nullable=True)
     ocr_text = Column(Text, nullable=True) # OCR'dan okunan ham metin

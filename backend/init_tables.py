@@ -9,6 +9,7 @@ from app.db.session import engine
 from app.db.base_class import Base
 from app.models.product import Product
 from app.models.user import User
+from app.models.favorite import Favorite
 
 def init_db():
     print("Veritabani tablolari olusturuluyor...")

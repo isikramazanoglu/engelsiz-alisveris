@@ -13,3 +13,6 @@ psycopg2-binary
 # passlib[bcrypt]
 # AI/Image Processing (Future Proofing)
 httpx
+redis
+python-multipart
+requests

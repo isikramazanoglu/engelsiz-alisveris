@@ -18,10 +18,8 @@ dependencies:
   provider: ^6.1.1
   
   # Camera & AI
-  # camera: ^0.10.5+9
-  # google_mlkit_barcode_scanning: ^0.14.1
-  # google_mlkit_text_recognition: ^0.15.0
-  # flutter_tts: ^3.8.3 # Metin okuma için
+  # Dependency conflict prevention: Using versions compatible with recent Flutter
+
 
   # UI Tools
   cupertino_icons: ^1.0.6
@@ -31,7 +29,7 @@ dependencies:
   permission_handler: ^12.0.1
   vibration: ^3.1.5
   simple_barcode_scanner: ^0.4.0
-  # vibration: ^1.8.4 # Dokunsal geri bildirim
+
 
 
 dev_dependencies:
