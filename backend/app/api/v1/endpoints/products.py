@@ -20,8 +20,14 @@ def read_products(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)
     if cached_data:
         return cached_data
 
-    # 2. DB'den çekme
-    products = db.query(Product).offset(skip).limit(limit).all()
+    try:
+        # 2. DB'den çekme
+        print("DB Query baslatiliyor...")
+        products = db.query(Product).offset(skip).limit(limit).all()
+        print(f"DB Query basarili. {len(products)} urun bulundu.")
+    except Exception as e:
+        print(f"DB Query hatasi: {e}")
+        raise e
     
     # 3. Cache'e yazma
     # Pydantic modellerini dict'e çevirmek için jsonable_encoder kullanılabilir

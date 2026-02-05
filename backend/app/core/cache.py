@@ -13,9 +13,9 @@ class CacheService:
                 cls._redis_client = redis.from_url(settings.REDIS_URL, decode_responses=True)
                 # Test connection
                 cls._redis_client.ping()
-                print("✅ Redis bağlantısı başarılı.")
-            except redis.ConnectionError:
-                print("⚠️ Redis bağlantısı başarısız. Önbellekleme devre dışı.")
+                print("[INFO] Redis baglantisi basarili.")
+            except Exception as e:
+                print(f"[WARNING] Redis baglantisi basarisiz. Onbellekleme devre disi. Hata: {e}")
                 cls._redis_client = None
         return cls._redis_client
 

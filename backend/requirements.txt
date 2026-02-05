@@ -9,8 +9,8 @@ sqlalchemy
 alembic
 psycopg2-binary
 # Security
-# python-jose[cryptography]
-# passlib[bcrypt]
+python-jose[cryptography]
+passlib[bcrypt]
 # AI/Image Processing (Future Proofing)
 httpx
 redis

@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Request
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
 import logging
 import time
@@ -57,16 +57,31 @@ if settings.BACKEND_CORS_ORIGINS:
         allow_headers=["*"],
     )
 
-@app.get("/")
+@app.get("/", response_class=HTMLResponse)
 async def root():
+    return """
+    <!DOCTYPE html>
+    <html lang="tr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Engelsiz Alışveriş API</title>
+        <style>
+            body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; padding: 50px; background-color: #f0f2f5; }
+            h1 { color: #2c3e50; }
+            p { color: #555; }
+            a { display: inline-block; margin-top: 20px; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; }
+            a:hover { background-color: #0056b3; }
+        </style>
+    </head>
+    <body>
+        <h1>Engelsiz Alışveriş Asistanı API</h1>
+        <p>Arka uç servisi sorunsuz çalışıyor. 🚀</p>
+        <p>API dokümantasyonuna ve test ekranına gitmek için aşağıdaki butona tıklayın.</p>
+        <a href="/docs">API Dokümantasyonu (Swagger)</a>
+    </body>
+    </html>
     """
-    Kök dizin - Sağlık kontrolü için basit bir mesaj döner.
-    """
-    return {
-        "message": "Engelsiz Alışveriş API Çalışıyor",
-        "docs_url": "/docs",
-        "version": "1.0.0"
-    }
 
 @app.get("/health")
 async def health_check():
